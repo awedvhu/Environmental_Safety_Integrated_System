@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        <meta charset="utf-8" />
+        {% load static %}
+        <link href="{% static "css/situation.css" %}" rel="stylesheet" type="text/css" />
+        <script src="{% static "js/situation.js" %}"></script>
+        <title>戰情室</title>
+    </head>
+    <body>
+        <div class="aside">
+            <table class="element_list">
+                <tbody>
+                    {% for element in elements %}
+                        <tr class="element">
+                            <td>{{ element.element_level }}</td>
+                            <td>{{ element.element_location }}</td>
+                            <td>{{ element.element_state }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="main">
+            <div class="map">
+
+            </div>
+            <div class="video">
+
+            </div>
+            <div class="identify_content">
+
+            </div>
+            <div class="identify_video">
+
+            </div>
+        </div>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</html>

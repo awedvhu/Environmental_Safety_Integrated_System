@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        <meta charset="utf-8" />
+         <title>{% block title %}{% endblock %}</title>
+        {% load static %}
+        <link href="{% static "css/base.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "boxicons/css/boxicons.css" %}" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div class="container-fluid" id="body">
+            <header id="header">
+                <div id="headerLogo">
+                    <img src="{% static "img/PULogo.png" %}" alt="Logo" />
+                    <i class="bx bx-menu" id="btn"></i>
+                </div>
+            </header>
+            <aside class="sidebar">
+                <ul class="nav_list">
+                    <li>
+                        <a href="#">
+                            <span class="links_name">戰情室</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav_list">
+                    <li>
+                        <a href="#">
+                            <span class="links_name">待填寫事件</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav_list">
+                    <li>
+                        <a href="#">
+                            <span class="links_name">事件分析</span>
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+        <!--header class="header">
+            <div class="logo">LOGO</div>
+            <div class="account">
+                123
+            </div>
+        </header>
+
+        <aside>
+            <nav class="menu">
+                <ul>
+                    <a href="http://127.0.0.1:8000/situation">
+                        <li class="menu_list">
+                        戰情室
+                        </li>
+                    </a>
+                    <a href="#">
+                        <li class="menu_list">待處理事件
+                            <i class="menu_icon"> > </i>
+                        </li>
+                    </a>
+                    <a href="#">
+                        <li class="menu_list">事件分析
+                            <i class="menu_icon"> > </i>
+                        </li>
+                    </a>
+                </ul>
+            </nav>
+        </aside>
+        {% block content %}
+        {% endblock %}
+        <footer>
+
+        </footer-->
+        <script src="{% static "js/base.js" %}"></script>
+        <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
+    </body>
+    <script src="{% static "js/jquery-3.6.0.js" %}"></script>
+</html>
