@@ -2,7 +2,62 @@
 {% block title %}
     homePage
 {% endblock %}
-
+{% block css %}
+    {% load static %}
+    <link href="{% static "css/homePage.css" %}" rel="stylesheet" type="text/css" />
+{% endblock %}
 {% block content %}
+<div class="col" id="pieChart">
 
+</div>
+<div class="col" id="event_card">
+    <div class="card">
+        <div class="card-header">
+            今日值班人員
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">值班人員</th>
+                        <th scope="col">時間</th>
+                        <th scope="col">時間</th>
+                        <th scope="col">狀態</th>
+                        <th scope="col">巡邏位置</th>
+                    </tr>
+                </thead>
+                <tbody id="dutyList">
+                    {% for dutyList in duty_lists %}
+                        {% if dutyList.day.month.month == 1 %}
+                            <tr>
+                                <th scope="row">{{ dutyList.UID.userName }}</th>
+                                <td>{{ dutyList.workTimeStart }}</td>
+                                <td>{{ dutyList.workTimeEnd }}</td>
+                                {% if dutyList.workTimeEnd.hour < now %}
+                                    <td>已下班</td>
+                                {% elif dutyList.dearWithEvent == null %}
+                                    <td>巡邏中</td>
+                                {% else %}
+                                    <td>處理事件中</td>
+                                {% endif %}
+                                    <td>{{ dutyList.building.buildingName }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card" id="tody_event">
+        <div class="card-header">
+            今日事件發生次數
+        </div>
+        <div class="card-body">
+            {{ count }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+    <script src="{% static "js/homePage.js" %}"></script>
 {% endblock %}

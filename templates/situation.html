@@ -2,40 +2,111 @@
 <html lang="zh-TW">
     <head>
         <meta charset="utf-8" />
+         <title>situation</title>
         {% load static %}
         <link href="{% static "css/situation.css" %}" rel="stylesheet" type="text/css" />
-        <script src="{% static "js/situation.js" %}"></script>
-        <title>戰情室</title>
+        <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet" type="text/css" />
+        <link href="{% static "boxicons/css/boxicons.css" %}" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <div class="aside">
-            <table class="element_list">
-                <tbody>
-                    {% for element in elements %}
-                        <tr class="element">
-                            <td>{{ element.element_level }}</td>
-                            <td>{{ element.element_location }}</td>
-                            <td>{{ element.element_state }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <div class="container-fluid" id="body">
+            <div class="row">
+                <div class="col">
+                    <header id="header">
+                        <div id="headerLogo">
+                            <a href="http://127.0.0.1:8000">
+                                <img src="{% static "img/PULogo.png" %}" alt="Logo" />
+                            </a>
+                            <i class="bx bx-menu" id="btn"></i>
+                        </div>
+                    </header>
+                </div>
+            </div>
+            <div class="row">
+                <aside class="sidebar active">
+                    <table class="table">
+                        <tbody>
+                        {% for event in events %}
+                            <tr id="event" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="getEvent({{ event.eventID }})">
+                                {% if event.level.levelNumber == 1 %}
+                                    <th id="levelImg"><img src="{% static "img/redtri.png" %}" alt="Logo" /></th>
+                                {% elif event.level.levelNumber == 2 %}
+                                    <th><img src="{% static "img/yellowtri.png" %}" alt="Logo" /></th>
+                                {% else %}
+                                    <th><img src="{% static "img/greentri.png" %}" alt="Logo" /></th>
+                                {% endif %}
+                                <th id="level">{{ event.level.levelNumber }}級</th>
+                                <th id="room">
+                                    {{ event.device.room.building.buildingName }}
+                                    {{ event.device.room.roomNumber }}
+                                </th>
+                                <th>{{ event.eventState}}</th>
+                            </tr>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">事件</h5>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body">
+                                          <div class="container-fluid">
+                                              <form action="/formprocess.php" method="post">
+                                                  <div class="row">
+                                                      <div class="col-3">
+                                                          事件編號
+                                                      </div>
+                                                      <div class="col-9" id="eventNumber">
+
+                                                      </div>
+                                                  </div>
+                                                  <div class="row">
+                                                      <div class="col-3">
+                                                          事件名稱
+                                                      </div>
+                                                      <div class="col-9" id="eventName">
+
+                                                      </div>
+                                                  </div>
+                                                  <div class="row">
+                                                      <div class="col-3">
+                                                          處理人員
+                                                      </div>
+                                                      <div class="col-9" id="eventPIC">
+
+                                                      </div>
+                                                  </div>
+                                                  <div class="row">
+                                                      <div class="col-3">
+                                                          是否誤報
+                                                      </div>
+                                                      <div class="col-9" id="eventNumber">
+
+                                                      </div>
+                                                  </div>
+                                                </form>
+                                          </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                          <button type="button" class="btn btn-primary">Save changes</button>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </aside>
+            </div>
+
         </div>
 
-        <div class="main">
-            <div class="map">
-
-            </div>
-            <div class="video">
-
-            </div>
-            <div class="identify_content">
-
-            </div>
-            <div class="identify_video">
-
-            </div>
-        </div>
+        <script src="{% static "js/situation.js" %}"></script>
+        <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
+        <script src="{% static "js/jquery-3.6.0.js" %}"></script>
+        <script src="{% static "js/popper.min.js" %}"></script>
+        {% block js %}{% endblock %}
     </body>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </html>

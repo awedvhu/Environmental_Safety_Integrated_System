@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}
+    levelset
+{% endblock %}
+{% block css %}
+    {% load static %}
+    <link href="{% static "css/levelSetting.css" %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block content %}
+<div class="col" id="historyEvent">
+    <table class="table align-middle text-center">
+        <thead>
+            <tr>
+                <th scope="col">等級</th>
+                <th scope="col">出勤人數</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for level in levels %}
+            <tr>
+                <th scope="row">{{ level.levelNumber }}</th>
+                <td>{{ level.numberOfPeople }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block js %}
+    <script src="{% static "js/levelSetting.js" %}"></script>
+{% endblock %}

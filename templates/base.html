@@ -7,74 +7,84 @@
         <link href="{% static "css/base.css" %}" rel="stylesheet" type="text/css" />
         <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet" type="text/css" />
         <link href="{% static "boxicons/css/boxicons.css" %}" rel="stylesheet" type="text/css" />
+        {% block css %}{% endblock %}
     </head>
     <body>
         <div class="container-fluid" id="body">
-            <header id="header">
-                <div id="headerLogo">
-                    <img src="{% static "img/PULogo.png" %}" alt="Logo" />
-                    <i class="bx bx-menu" id="btn"></i>
+            <div class="row">
+                <div class="col">
+                    <header id="header">
+                        <div id="headerLogo">
+                            <a href="http://127.0.0.1:8000">
+                                <img src="{% static "img/PULogo.png" %}" alt="Logo" />
+                            </a>
+                            <i class="bx bx-menu" id="btn"></i>
+
+                        </div>
+                    </header>
                 </div>
-            </header>
-            <aside class="sidebar">
-                <ul class="nav_list">
-                    <li>
-                        <a href="#">
-                            <span class="links_name">戰情室</span>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="nav_list">
-                    <li>
-                        <a href="#">
-                            <span class="links_name">待填寫事件</span>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="nav_list">
-                    <li>
-                        <a href="#">
-                            <span class="links_name">事件分析</span>
-                        </a>
-                    </li>
-                </ul>
-            </aside>
-        </div>
-        <!--header class="header">
-            <div class="logo">LOGO</div>
-            <div class="account">
-                123
             </div>
-        </header>
+            <div class="row">
+                <aside class="sidebar active">
+                    <ul class="nav_list">
+                        <li>
+                            <a href="http://127.0.0.1:8000/situation/">
+                                <span class="links_name">戰情室</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav_list">
+                        <li>
+                            <a href="http://127.0.0.1:8000/pendingevent/">
+                                <span class="links_name">待填寫事件</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav_list">
+                        <li>
+                            <a href="http://127.0.0.1:8000/eventanalysis/">
+                                <span class="links_name">事件分析</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav_list">
+                        <li>
+                            <a href="http://127.0.0.1:8000/historicalevent/">
+                                <span class="links_name">歷史事件</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav_list">
+                        <li>
+                            <a href="http://127.0.0.1:8000/eventanalysis/">
+                                <span class="links_name">攝影機設置</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav_list">
+                        <li>
+                            <a href="http://127.0.0.1:8000/levelset/">
+                                <span class="links_name">等級設定</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav_list">
+                        <li>
+                            <a href="http://127.0.0.1:8000/userset/">
+                                <span class="links_name">系統管理</span>
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+                {% block content %}{% endblock %}
+            </div>
 
-        <aside>
-            <nav class="menu">
-                <ul>
-                    <a href="http://127.0.0.1:8000/situation">
-                        <li class="menu_list">
-                        戰情室
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li class="menu_list">待處理事件
-                            <i class="menu_icon"> > </i>
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li class="menu_list">事件分析
-                            <i class="menu_icon"> > </i>
-                        </li>
-                    </a>
-                </ul>
-            </nav>
-        </aside>
-        {% block content %}
-        {% endblock %}
-        <footer>
+        </div>
 
-        </footer-->
         <script src="{% static "js/base.js" %}"></script>
         <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
+        <script src="{% static "js/jquery-3.6.0.js" %}"></script>
+        {% block js %}{% endblock %}
     </body>
-    <script src="{% static "js/jquery-3.6.0.js" %}"></script>
+
 </html>

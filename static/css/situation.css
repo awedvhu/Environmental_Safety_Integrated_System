@@ -12,7 +12,6 @@
     top: 0;
     left: 0;
 }
-
 #headerLogo img{
     width: 260px;
 }
@@ -20,7 +19,6 @@ div.row, div.col {
     margin: 0;
     padding: 0;
 }
-
 .row .sidebar {
     height: 100vh;
     width: 0;
@@ -31,7 +29,7 @@ div.row, div.col {
     padding: 0;
 }
 .sidebar.active {
-    width: 310px;
+    width: 400px;
 }
 #headerLogo #btn {
     position: absolute;
@@ -45,26 +43,19 @@ div.row, div.col {
     transform: translateX(-50%);
 }
 
-.sidebar ul {
-    margin: 0;
+#level {
+    width: 50px;
 }
-.sidebar ul:hover {
-    color: #EEF0F0;
-    background-color: #CFDDDD;
+#levelImg {
+    width: 100px;
 }
-.sidebar ul li {
-    position: relative;
+#room {
+    width: 125px;
+}
+#event {
     height: 70px;
-    width: 100%;
-    margin: 0 50px;
-    list-style:none;
+    text-align: center;
     line-height: 70px;
-    font-size: 30px;
-}
-.sidebar ul li a {
-    color: black;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    transition: all 0.4s ease;
+    width: auto;
+    background-color: white;
 }

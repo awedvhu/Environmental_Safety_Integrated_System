@@ -15,17 +15,41 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url, include
-from rest_framework.routers import DefaultRouter
+from rest_framework import routers
 from myapp import views
-from myapp.views import homepage
+from myapp.views import *
+from django.urls import path
 
 
-router = DefaultRouter()
+router = routers.DefaultRouter()
 router.register(r'user', views.UserViewSet)
-
+router.register(r'department', views.DepartmentViewSet)
+router.register(r'auth', views.AuthViewSet)
+router.register(r'identify', views.IdentifyViewSet)
+router.register(r'eventName', views.EventNameViewSet)
+router.register(r'building', views.BuildingViewSet)
+router.register(r'room', views.RoomViewSet)
+router.register(r'level', views.LevelViewSet)
+router.register(r'device', views.DeviceViewSet)
+router.register(r'deviceFeature', views.DeviceFeatureViewSet)
+router.register(r'yearlyDutyList', views.YearlyDutyListViewSet)
+router.register(r'monthlyDutyList', views.MonthlyDutyListViewSet)
+router.register(r'daylyDutyList', views.DaylyDutyListViewSet)
+router.register(r'yearlyTotalEvent', views.YearlyTotalEventViewSet)
+router.register(r'monthlyTotalEvent', views.MonthlyTotalEventViewSet)
+router.register(r'daylyTotalEvent', views.DaylyTotalEventViewSet)
+router.register(r'event', views.EventViewSet)
+router.register(r'dutyList', views.DutyListViewSet)
+router.register(r'eventPIC', views.EventPICViewSet)
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^api/', include(router.urls)),
+    url('situation/', situation),
+    url('pendingevent/', pendingevent),
+    url('eventanalysis/', eventanalysis),
+    url('historicalevent/', historicalevent),
+    url('userset/', userset),
+    url('levelset/', levelset),
+    url('admin/', admin.site.urls),
+    url('api/', include(router.urls)),
     url('', homepage),
 ]

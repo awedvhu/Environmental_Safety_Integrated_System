@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}
+    userSet
+{% endblock %}
+{% block css %}
+    {% load static %}
+    <link href="{% static "css/userSetting.css" %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block content %}
+<div class="col" id="historyEvent">
+    <table class="table align-middle text-center">
+        <thead>
+            <tr>
+                <th scope="col">序號</th>
+                <th scope="col">部門單位</th>
+                <th scope="col">姓名</th>
+                <th scope="col">權限</th>
+                <th scope="col">狀態</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ user.auth.authName }}</td>
+                <td>{{ user.userName }}</td>
+                <td>{{ user.auth.authName }}</td>
+                <td>{{ user.accountEnable }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block js %}
+    <script src="{% static "js/userSetting.js" %}"></script>
+{% endblock %}
