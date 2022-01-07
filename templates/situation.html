@@ -14,7 +14,7 @@
                 <div class="col">
                     <header id="header">
                         <div id="headerLogo">
-                            <a href="http://127.0.0.1:8000">
+                            <a href="http://120.110.115.151:8000">
                                 <img src="{% static "img/PULogo.png" %}" alt="Logo" />
                             </a>
                             <i class="bx bx-menu" id="btn"></i>
@@ -51,13 +51,12 @@
                                       </div>
                                       <div class="modal-body">
                                           <div class="container-fluid">
-                                              <form action="/formprocess.php" method="post">
+                                              <form action="http://120.110.115.151:8000/apiRead/event/" method="put">
                                                   <div class="row">
                                                       <div class="col-3">
                                                           事件編號
                                                       </div>
-                                                      <div class="col-9" id="eventNumber">
-
+                                                      <div class="col-9" id="eventNumber" id="eventNumber">
                                                       </div>
                                                   </div>
                                                   <div class="row">
@@ -73,23 +72,33 @@
                                                           處理人員
                                                       </div>
                                                       <div class="col-9" id="eventPIC">
-
+                                                            <select>
+                                                                {% for user in users %}
+                                                                <option name="PIC">
+                                                                    {{ user.userName }}
+                                                                </option>
+                                                                {% endfor %}
+                                                            </select>
                                                       </div>
                                                   </div>
                                                   <div class="row">
                                                       <div class="col-3">
                                                           是否誤報
                                                       </div>
-                                                      <div class="col-9" id="eventNumber">
+                                                      <div class="col-9" id="error">
 
+                                                            <input type="radio" name="wrongReport" value="True"> 是
+                                                            <input type="radio" name="wrongReport" value="False"> 否
                                                       </div>
-                                                  </div>
-                                                </form>
+
+                                                      <div class="modal-footer">
+                                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                                                          <button type="button" class="btn btn-primary">儲存</button>
+                                                      </div>
+
+                                                    </div>
+                                              </form>
                                           </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                          <button type="button" class="btn btn-primary">Save changes</button>
                                       </div>
                                     </div>
                                 </div>
@@ -98,6 +107,14 @@
                         </tbody>
                     </table>
                 </aside>
+            <div class="col">
+                    <img src="{% static "img/3D主顧.png" %}" id="3D" style="width:100%;height:auto;float: left;" />
+                </div>
+                <div class="col">
+                    <video src="http:/120.110.115.151:8080/test" type="video/ogg" width="550" height="450" autoplay="autoplay" controls="controls" loop="loop" style="float:right"/>
+                </div>
+
+
             </div>
 
         </div>

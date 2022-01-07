@@ -5,9 +5,44 @@
 {% block css %}
     {% load static %}
     <link href="{% static "css/homePage.css" %}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 {% endblock %}
 {% block content %}
 <div class="col" id="pieChart">
+    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+    <script>
+    let a =  {{ peoplecount }};
+    let b = {{ invadecount }};
+    let c = {{ allpeoplecount }};
+    let d = {{ allinvadecount }};
+    let xValues = ["超過人數", "有人入侵"];
+    let yValues = [c, d];
+    let barColors = ["red","blue"];
+
+    new Chart("myChart", {
+      type: "pie",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+        legend: {display: false},
+        title: {
+          display: true,
+          fontSize: 20,
+          text: "近期事件統計"
+        }
+      }
+    });
+    </script>
+
 
 </div>
 <div class="col" id="event_card">
@@ -20,8 +55,8 @@
                 <thead>
                     <tr>
                         <th scope="col">值班人員</th>
-                        <th scope="col">時間</th>
-                        <th scope="col">時間</th>
+                        <th scope="col">開始時間</th>
+                        <th scope="col">結束時間</th>
                         <th scope="col">狀態</th>
                         <th scope="col">巡邏位置</th>
                     </tr>
@@ -33,7 +68,7 @@
                                 <th scope="row">{{ dutyList.UID.userName }}</th>
                                 <td>{{ dutyList.workTimeStart }}</td>
                                 <td>{{ dutyList.workTimeEnd }}</td>
-                                {% if dutyList.workTimeEnd.hour < now %}
+                                {% if dutyList.workTimeEnd.hour <= now %}
                                     <td>已下班</td>
                                 {% elif dutyList.dearWithEvent == null %}
                                     <td>巡邏中</td>
@@ -50,14 +85,37 @@
     </div>
     <div class="card" id="tody_event">
         <div class="card-header">
-            今日事件發生次數
+
         </div>
         <div class="card-body">
-            {{ count }}
+            <canvas id="example" width="400" height="200"></canvas>
+              <script>
+                  let ctx = document.getElementById( "example" ),
+                    example = new Chart(ctx, {
+                        // 參數設定[註1]
+                        type: "bar", // 圖表類型
+                        data: {
+                            labels: [ "超過人數", "有人入侵" ], // 標題
+                            datasets: [{
+                                label: "今日事件發生次數", // 標籤
+                                data: [ a, b ], // 資料
+                                backgroundColor: [ // 背景色
+                                "#FF0000",
+                                "#0000FF",
+                                ],
+                                borderWidth: 1 // 外框寬度
+                            }]
+                        }
+                    });
+              </script>
+        </div>
+    </div>
+
         </div>
     </div>
 </div>
 {% endblock %}
 {% block js %}
     <script src="{% static "js/homePage.js" %}"></script>
+    <script src="{% static "js/echarts.min.js" %}"></script>
 {% endblock %}

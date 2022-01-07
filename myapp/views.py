@@ -8,6 +8,10 @@ from django.http import HttpResponse
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
+from django.views.decorators import gzip
+from django.http import StreamingHttpResponse
+import cv2
+import threading
 
 
 class DepartmentViewSet(viewsets.ModelViewSet):
@@ -108,39 +112,88 @@ class DaylyTotalEventViewSet(viewsets.ModelViewSet):
 # APIView
 class EventAPIView(APIView):
 
-    def get_object(self, pk):
-        event = get_object_or_404(Event, pk=pk)
-        return event
+    def get(self, request):
+        self.as_view()
+        event = Event.objects.all()
+        serializer = EventSerializer(event, many=True)
+        return Response(serializer.data)
 
-    def get(self, request, pk):
-        event = self.get_object(pk)
-        serializer = EventSerializer(event)
-        return JsonResponse(serializer.data)
-
-    def put(self, request, pk):
-        event = self.get_object(pk)
-        serializer = EventSerializer(event, data=request.data)
+    def put(self, request):
+        self.as_view()
+        serializer = EventSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk):
-        event = self.get_object(pk)
-        event.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class EventDetail(APIView):
+    def get_object(self, event_id):
+        self.as_view()
+        try:
+            return Event.objects.get(eventID=event_id)
+        except Event.DoesNotExist:
+            return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+
+    def get(self, request, event_id):
+        event = self.get_object(event_id)
+        serializer = EventSerializer(event)
+        return Response(serializer.data)
+
+
+class DeviceAPIView(APIView):
+
+    def get(self, request):
+        self.as_view()
+        device = Device.objects.all()
+        serializer = DeviceSerializer(device, many=True)
+        return Response(serializer.data)
+
+    def put(self, request):
+        self.as_view()
+        serializer = DeviceSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DeviceDetail(APIView):
+    def get_object(self, device_id):
+        self.as_view()
+        try:
+            return Device.objects.get(deviceID=device_id)
+        except Device.DoesNotExist:
+            return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+
+    def get(self, request, device_id):
+        device = self.get_object(device_id)
+        serializer = EventSerializer(device)
+        return Response(serializer.data)
 
 
 # Create your views here.
 def homepage(request):
     today = datetime.today()
     now = datetime.now().hour
+    nowmin = datetime.now().min
     duty_lists = DutyList.objects.filter(day=today.day)
-    events = Event.objects.filter(day=today.day)
-    count = 0
+    events = Event.objects.all()
+    users = User.objects.all()
+    peoplecount = 0
+    invadecount = 0
+    allpeoplecount = 0
+    allinvadecount = 0
     for event in events:
+        if event.eventName.eventName == "超過人數":
+            allpeoplecount += 1
+        else:
+            allinvadecount += 1
         if event.day.day == today.day:
-            count += 1
+            if event.eventName.eventName == "超過人數":
+                peoplecount += 1
+            else:
+                invadecount += 1
 
     return render(request, "homePage.html", locals())
 
@@ -149,6 +202,7 @@ def situation(request):
     today = datetime.today()
     events = Event.objects.filter(day=today.day)
     duty_lists = DutyList.objects.filter(day=today.day)
+    users = User.objects.all()
 
     return render(request, "situation.html", locals())
 
@@ -171,7 +225,7 @@ def eventanalysis(request):
 
 def historicalevent(request):
     today = datetime.today()
-    events = Event.objects.all()
+    events = Event.objects.all().order_by('-eventID')
     duty_lists = DutyList.objects.filter(day=today.day)
 
     return render(request, "historicalevent.html", locals())
@@ -194,3 +248,11 @@ def levelset(request):
 
     return render(request, "levelSet.html", locals())
 
+
+def deviceset(request):
+    today = datetime.today()
+    events = Event.objects.all()
+    duty_lists = DutyList.objects.filter(day=today.day)
+    devices = Device.objects.all()
+
+    return render(request, "deviceSet.html", locals())

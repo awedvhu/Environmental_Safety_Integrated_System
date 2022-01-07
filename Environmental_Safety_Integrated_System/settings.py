@@ -81,7 +81,7 @@ DATABASES = {
         'NAME': 'esis',
         'USER': 'awedvhu',
         'PASSWORD': 'awedvhu0808',
-        'HOST': '127.0.0.1',
+        'HOST': '120.110.115.151',
         'PORT': '3306',
         'OPTIONS': {
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'"

@@ -59,3 +59,8 @@ div.row, div.col {
     width: auto;
     background-color: white;
 }
+img#3D {
+    width: 100px;
+    height: 100px;
+    float: right;
+}

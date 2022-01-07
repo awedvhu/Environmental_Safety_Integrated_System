@@ -85,10 +85,10 @@ class Device(models.Model):
     identify = models.ManyToManyField(Identify, through='DeviceFeature')
     room = models.ForeignKey(Room, on_delete=models.CASCADE, to_field="roomNumber")
     deviceNumber = models.CharField(max_length=10, unique=True)
-    deviceIP = models.CharField(max_length=20, unique=True)
+    deviceIP = models.CharField(max_length=20, unique=True, blank=True)
     deviceState = models.CharField(max_length=10, default="未連線")
     deviceEnable = models.BooleanField()
-    deviceCoordinate = models.CharField(max_length=50)
+    deviceCoordinate = models.CharField(max_length=50, blank=True)
     devicePhoto = models.ImageField(blank=True, null=True)
     deviceNote = models.CharField(max_length=1000, blank=True)
 

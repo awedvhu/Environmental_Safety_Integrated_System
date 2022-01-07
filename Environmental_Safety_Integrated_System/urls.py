@@ -43,13 +43,17 @@ router.register(r'dutyList', views.DutyListViewSet)
 router.register(r'eventPIC', views.EventPICViewSet)
 
 urlpatterns = [
+    path('api/event/', EventAPIView.as_view()),
+    path('api/device/', DeviceAPIView.as_view()),
     url('situation/', situation),
-    url('pendingevent/', pendingevent),
-    url('eventanalysis/', eventanalysis),
+    # url('pendingevent/', pendingevent),
+    # url('eventanalysis/', eventanalysis),
     url('historicalevent/', historicalevent),
     url('userset/', userset),
     url('levelset/', levelset),
+    url('deviceset/', deviceset),
     url('admin/', admin.site.urls),
-    url('api/', include(router.urls)),
+    url('apiRead/', include(router.urls)),
     url('', homepage),
+
 ]

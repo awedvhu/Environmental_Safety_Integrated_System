@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}
+    deviceSet
+{% endblock %}
+{% block css %}
+    {% load static %}
+    <link href="{% static "css/deviceSet.css" %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block content %}
+<div class="col" id="historyEvent">
+    <table class="table align-middle text-center">
+        <thead>
+            <tr>
+                <th scope="col">編號</th>
+                <th scope="col">IP</th>
+                <th scope="col">狀態</th>
+                <th scope="col">位置</th>
+                <th scope="col">啟用</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for device in devices %}
+            <tr>
+                <th scope="row">{{ device.deviceNumber }}</th>
+                <td>{{ device.deviceIP }}</td>
+                <td>{{ device.deviceState }}</td>
+                <td>{{ device.room.building.buildingName }}{{ device.room.roomNumber }}</td>
+                <td>{{ device.deviceEnable }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block js %}
+    <script src="{% static "js/deviceSet.js" %}"></script>
+{% endblock %}
